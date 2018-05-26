@@ -83,9 +83,13 @@ int *Dijkstra(const int n, const int * const *weight, const int source, int *dis
 		visit[SV] = true;
 
 		for (int i = 0; i < n; i++){
-			if (weight[SV][i] && !visit[i] && weight[SV][i] + dist[SV] < dist[i]){
-				dist[i] = weight[SV][i] + dist[SV];
-				parent[i] = SV;
+			if (weight[SV][i] && !visit[i]){
+				if (weight[SV][i] + dist[SV] < dist[i]){
+					parent[i] = SV;
+					dist[i] = weight[SV][i] + dist[SV];
+				}
+				else if (weight[SV][i] + dist[SV] == dist[i] && SV < parent[i])
+					parent[i] = SV;
 			}
 		}
 	}
